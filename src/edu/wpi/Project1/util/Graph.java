@@ -14,6 +14,7 @@ public class Graph {
 
     public Graph(File txtFile){
         this.map = new HashMap<>();
+
     }
 
     /**
@@ -33,8 +34,13 @@ public class Graph {
      * @param line
      */
     private void processLine(String line){
-        String[] words = line.split("\\w+");
-        addEdge(words[0], words[1], Double.parseDouble(words[2]));
+        String[] words = line.split(" ");
+        if(words.length == 3){
+            addEdge(words[0], words[1], Double.parseDouble(words[2]));
+        }
+        else if(words.length == 2){
+            addHeur(words[0], Double.parseDouble(words[1]));
+        }
     }
 
     /**
@@ -53,5 +59,14 @@ public class Graph {
         }
 
         map.get(source).addEdge(map.get(target), weight);
+    }
+
+    /**
+     * Adds heurtisc value to goal node, to a node
+     * @param source
+     * @param heur
+     */
+    private void addHeur(String source, double heur){
+        map.get(source).addHeur(heur);
     }
 }
