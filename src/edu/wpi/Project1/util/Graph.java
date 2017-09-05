@@ -59,6 +59,8 @@ public class Graph {
         }
 
         map.get(source).addEdge(map.get(target), weight);
+        map.get(target).addEdge(map.get(source), weight);
+
     }
 
     /**
