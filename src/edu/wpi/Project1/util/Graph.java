@@ -17,6 +17,10 @@ public class Graph {
 
     }
 
+    public Node get(String ltr){
+        return map.get(ltr);
+    }
+
     /**
      * Parses a text file to create a graph
      * @param file graph.txt
