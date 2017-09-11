@@ -10,11 +10,14 @@ import java.util.List;
 /**
  * Created by John on 9/11/2017.
  */
-public class HillClimbing extends Algorithm {
-    public HillClimbing(){
+public class BeamSearch extends Algorithm {
+    private int k;
+    public BeamSearch(int k){
+        this.k = k;
         this.printType = 2;
-        this.name = "Hill-climbing (use the version of hill-climbing without backtracking)";
+        this.name = "Beam search (use w = 2)";
     }
+
     @Override
     public ArrayDeque<NewNode> add(ArrayDeque<NewNode> frontier, List<NewNode> children, Graph graph) {
         children.sort(new Comparator<NewNode>() {
@@ -39,7 +42,10 @@ public class HillClimbing extends Algorithm {
                 }
             }
         });
-        frontier.addFirst(children.get(0));
+        children.subList(0,this.k);
+        for(int i = children.size(); i >= 0; i--){
+            frontier.addFirst(children.get(i));
+        }
         return frontier;
     }
 }
