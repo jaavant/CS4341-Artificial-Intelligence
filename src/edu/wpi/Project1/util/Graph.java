@@ -4,20 +4,38 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.stream.Stream;
 
 /**
  * Created by John on 8/29/2017.
  */
 public class Graph {
-    HashMap<String,Node> map;
+    public HashMap<Character,Double> map;
+    HashSet<Character> explored;
+    Double[][] adjM;
 
     public Graph(File txtFile){
+        this.explored = new HashSet<>();
         this.map = new HashMap<>();
-
+        this.adjM = new Double[26][26];
+        for(int i = 0; i < 26; i++){
+            for(int k = 0; k < 26; k++){
+                this.adjM[i][k] = null;
+            }
+        }
+        parseTxt(txtFile);
     }
 
-    public Node get(String ltr){
+    public boolean wasExplored(Character ch){
+        return explored.contains(ch);
+    }
+
+    public void setExplored(Character ch){
+        explored.add(ch);
+    }
+
+    public Double getHeur(Character ltr){
         return map.get(ltr);
     }
 
@@ -31,6 +49,7 @@ public class Graph {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        map.put('G',0.0);
     }
 
     /**
@@ -40,7 +59,7 @@ public class Graph {
     private void processLine(String line){
         String[] words = line.split(" ");
         if(words.length == 3){
-            addEdge(words[0], words[1], Double.parseDouble(words[2]));
+            addWeight(words[0], words[1], Double.parseDouble(words[2]));
         }
         else if(words.length == 2){
             addHeur(words[0], Double.parseDouble(words[1]));
@@ -53,18 +72,17 @@ public class Graph {
      * @param target Incoming node
      * @param weight Weight of edge
      */
-    private void addEdge(String source, String target, double weight){
-        if(!map.containsKey(source)){
-            map.put(source, new Node(source));
-        }
+    private void addWeight(String source, String target, double weight){
+        int x = source.charAt(0) - 'A';
+        int y = target.charAt(0) - 'A';
+        adjM[x][y] = weight;
+        adjM[y][x] = weight;
+    }
 
-        if(!map.containsKey(target)){
-            map.put(source, new Node(target));
-        }
-
-        map.get(source).addEdge(map.get(target), weight);
-        map.get(target).addEdge(map.get(source), weight);
-
+    public Double getWeight(Character source, Character target){
+        int x = source - 'A';
+        int y = target - 'A';
+        return adjM[x][y];
     }
 
     /**
@@ -73,6 +91,6 @@ public class Graph {
      * @param heur
      */
     private void addHeur(String source, double heur){
-        map.get(source).addHeur(heur);
+        map.put(source.charAt(0), heur);
     }
 }

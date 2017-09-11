@@ -1,4 +1,4 @@
-package edu.wpi.Project1.util;
+package edu.wpi.Project1.old;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,8 @@ public class Node {
         return list;
     }
 
-    public String getLtr() {
+    @Override
+    public String toString() {
         return ltr;
     }
 

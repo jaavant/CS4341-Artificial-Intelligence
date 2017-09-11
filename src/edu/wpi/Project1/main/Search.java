@@ -1,38 +1,66 @@
 package edu.wpi.Project1.main;
 
 import edu.wpi.Project1.methods.Algorithm;
+import edu.wpi.Project1.methods.BreadthFirstSearch;
 import edu.wpi.Project1.util.Graph;
-import edu.wpi.Project1.util.Node;
-import edu.wpi.Project1.util.Tuple;
+import edu.wpi.Project1.util.NewNode;
 
 import java.io.File;
-import java.util.ArrayDeque;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by John on 8/30/2017.
  */
 public class Search {
     public static void main(String[] args){
-        File graphTxt = new File(args[0]);
+        File graphTxt = new File("C:\\Users\\John\\IdeaProjects\\CS4341\\resources\\graph.txt");
+        Graph graph = new Graph(graphTxt);
+
+        search(graph, new BreadthFirstSearch());
     }
 
-    public static Node search(Graph graph, Algorithm algo){
-        Node node;
-        List children;
-        ArrayDeque<Tuple> frontier = new ArrayDeque<>();
-        frontier.add(new Tuple(0.0,graph.get("S")));
+    public static void search(Graph graph, Algorithm algo){
+        ArrayDeque<NewNode> frontier = new ArrayDeque<>();
+        NewNode node;
+        ArrayList<NewNode> openedNodes;
+        LinkedList path = new LinkedList();
+        path.add('S');
+        frontier.add(new NewNode(0,graph.getHeur('S'),0,0,'S',path));
 
+        System.out.println(algo.name);
+        System.out.println("Expanded  Queue");
         do{
-            node = frontier.pollFirst().getNode();
-            if(node.getLtr().equalsIgnoreCase("G")){
-                return node;
+            printFrontier(algo.printType, frontier);
+            node = frontier.pollFirst();
+            if(node.getLetter() == 'G'){
+                System.out.println("Goal Reached");
+                return;
             }
-
-            children = node.getChildrenWithWeight();
-            frontier = algo.add(frontier,children);
+            graph.setExplored(node.getLetter());
+            openedNodes = node.getChildren(graph);
+            frontier = algo.add(frontier,openedNodes,graph);
         }while(!frontier.isEmpty());
-        return null;
+        return;
+    }
+
+    /**
+     * 1 = print nothing
+     * 2 = print weight
+     * 3 = print heur
+     */
+    public static void printFrontier(int print, ArrayDeque<NewNode> frontier){
+        StringBuilder word = new StringBuilder("[");
+        Iterator<NewNode> iter = frontier.iterator();
+
+        while(iter.hasNext()){
+            word.append(iter.next().toString(print));
+
+            if(iter.hasNext()){
+                word.append(" ");
+            }
+        }
+        word.append("]");
+        System.out.println(word);
     }
 
 }
