@@ -1,9 +1,6 @@
 package edu.wpi.Project1.main;
 
-import edu.wpi.Project1.methods.Algorithm;
-import edu.wpi.Project1.methods.BreadthFirstSearch;
-import edu.wpi.Project1.methods.DepthFirstSearch;
-import edu.wpi.Project1.methods.DepthLimitedSearch;
+import edu.wpi.Project1.methods.*;
 import edu.wpi.Project1.util.Graph;
 import edu.wpi.Project1.util.NewNode;
 
@@ -18,7 +15,7 @@ public class Search {
         File graphTxt = new File("C:\\Users\\John\\IdeaProjects\\CS4341\\resources\\graph.txt");
         Graph graph = new Graph(graphTxt);
 
-        search(graph, new DepthLimitedSearch(2));
+        search(graph, new IterativeDeepeningSearch());
     }
 
     public static void search(Graph graph, Algorithm algo){
