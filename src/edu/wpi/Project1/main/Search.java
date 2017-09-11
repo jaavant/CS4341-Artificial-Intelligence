@@ -12,13 +12,22 @@ import java.util.*;
  */
 public class Search {
     public static void main(String[] args){
-        File graphTxt = new File("C:\\Users\\John\\IdeaProjects\\CS4341\\resources\\graph.txt");
+        File graphTxt = new File(args[0]);
         Graph graph = new Graph(graphTxt);
 
+        search(graph, new DepthFirstSearch());
+        search(graph, new BreadthFirstSearch());
+        search(graph, new DepthLimitedSearch(2));
+        search(graph, new IterativeDeepeningSearch());
+        search(graph, new UniformSearch());
+        search(graph, new GreedySearch());
+        search(graph, new AStarSearch());
         search(graph, new BeamSearch(2));
+        search(graph, new HillClimbing());
     }
 
     public static void search(Graph graph, Algorithm algo){
+        System.out.println("");
         ArrayDeque<NewNode> frontier = new ArrayDeque<>();
         NewNode node;
         ArrayList<NewNode> openedNodes;
