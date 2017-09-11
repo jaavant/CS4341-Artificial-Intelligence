@@ -15,7 +15,7 @@ public class Search {
         File graphTxt = new File("C:\\Users\\John\\IdeaProjects\\CS4341\\resources\\graph.txt");
         Graph graph = new Graph(graphTxt);
 
-        search(graph, new GreedySearch());
+        search(graph, new AStarSearch());
     }
 
     public static void search(Graph graph, Algorithm algo){
@@ -25,7 +25,6 @@ public class Search {
         LinkedList path = new LinkedList();
         path.add('S');
         frontier.add(new NewNode(0,graph.getHeur('S'),0,0,'S',path));
-
         System.out.println(algo.name);
         System.out.println("    Expanded  Queue");
         do{
@@ -43,9 +42,10 @@ public class Search {
     }
 
     /**
-     * 1 = print nothing
-     * 2 = print weight
-     * 3 = print heur
+     * 0 = print nothing
+     * 1 = print weight
+     * 2 = print heur
+     * 3 = print heur + weight
      */
     public static void printFrontier(int print, ArrayDeque<NewNode> frontier){
         StringBuilder word = new StringBuilder("        " + frontier.getFirst().getLetter() + "     ");

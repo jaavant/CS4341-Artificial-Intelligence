@@ -74,6 +74,9 @@ public class NewNode {
         else if(printType == 2){
             string.append(this.h);
         }
+        else if (printType == 3){
+            string.append(this.f);
+        }
         string.append("<");
         while(iter.hasNext()){
             string.append(iter.next().toString());
