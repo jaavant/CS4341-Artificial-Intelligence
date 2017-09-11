@@ -11,6 +11,7 @@ import java.util.*;
  * Created by John on 8/30/2017.
  */
 public class Search {
+	
     public static void main(String[] args){
         File graphTxt = new File(args[0]);
         Graph graph = new Graph(graphTxt);
@@ -47,6 +48,7 @@ public class Search {
             openedNodes = node.getChildren(graph);
             frontier = algo.add(frontier,openedNodes,graph);
         }while(!frontier.isEmpty());
+        System.out.println("	failure to find path between S and G");
         return;
     }
 
