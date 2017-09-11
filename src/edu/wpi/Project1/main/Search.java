@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Search {
     public static void main(String[] args){
-        File graphTxt = new File(args[0]);
+        File graphTxt = new File("C:\\Users\\John\\IdeaProjects\\CS4341\\resources\\graph.txt");
         Graph graph = new Graph(graphTxt);
 
         search(graph, new DepthFirstSearch());
@@ -28,23 +28,26 @@ public class Search {
 
     public static void search(Graph graph, Algorithm algo){
         System.out.println("");
-        ArrayDeque<NewNode> frontier = new ArrayDeque<>();
-        NewNode node;
-        ArrayList<NewNode> openedNodes;
         LinkedList path = new LinkedList();
         path.add('S');
-        frontier.add(new NewNode(0,graph.getHeur('S'),0,0,'S',path));
+        NewNode initNode = new NewNode(0,graph.getHeur('S'),0,0,'S',path);
         System.out.println(algo.name);
         System.out.println("    Expanded  Queue");
+        general_search(graph,algo,initNode);
+    }
+
+    public static void general_search(Graph graph, Algorithm algo, NewNode initNode){
+        ArrayDeque<NewNode> frontier = new ArrayDeque<>();
+        frontier.add(initNode);
         do{
             printFrontier(algo.printType, frontier);
-            node = frontier.pollFirst();
+            NewNode node = frontier.pollFirst();
             if(node.getLetter() == 'G'){
                 System.out.println("        goal reached!");
                 return;
             }
             graph.setExplored(node.getLetter());
-            openedNodes = node.getChildren(graph);
+            ArrayList<NewNode> openedNodes = node.getChildren(graph);
             frontier = algo.add(frontier,openedNodes,graph);
         }while(!frontier.isEmpty());
         return;
