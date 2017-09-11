@@ -90,4 +90,6 @@ public class NewNode {
     public LinkedList<Character> getPath(){
         return this.path;
     }
+
+    public int getDepth(){ return this.depth; }
 }
