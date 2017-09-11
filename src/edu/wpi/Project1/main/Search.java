@@ -15,7 +15,7 @@ public class Search {
         File graphTxt = new File("C:\\Users\\John\\IdeaProjects\\CS4341\\resources\\graph.txt");
         Graph graph = new Graph(graphTxt);
 
-        search(graph, new IterativeDeepeningSearch());
+        search(graph, new UniformSearch());
     }
 
     public static void search(Graph graph, Algorithm algo){

@@ -20,6 +20,7 @@ public class NewNode {
     public NewNode(double g, double h, double weight, int depth, char letter, LinkedList<Character> path){
         this.g = g;
         this.h = h;
+        this.f = g + h;
         this.weight = weight;
         this.depth = depth;
         this.letter = letter;
@@ -50,10 +51,13 @@ public class NewNode {
             if(p.contains(ltr)){
                 continue;
             }
-
             p.addFirst(ltr);
 
-            children.add(new NewNode(this.g + w,h,w,this.depth + 1,ltr, p));
+            double localG = this.g.doubleValue();
+            double localW = w.doubleValue();
+
+            children.add(new NewNode(localG + localW,h.doubleValue(),w,this.depth + 1,ltr, p));
+
         }
 
         return children;
@@ -65,7 +69,7 @@ public class NewNode {
         Iterator<Character> iter = this.path.iterator();
 
         if(printType == 1){
-            string.append(this.weight);
+            string.append(this.g);
         }
         else if(printType == 2){
             string.append(this.h);
@@ -92,4 +96,20 @@ public class NewNode {
     }
 
     public int getDepth(){ return this.depth; }
+
+    public Double getWeight(){
+        return this.weight;
+    }
+
+    public Double getG() {
+        return g;
+    }
+
+    public Double getH() {
+        return h;
+    }
+
+    public Double getF() {
+        return f;
+    }
 }
