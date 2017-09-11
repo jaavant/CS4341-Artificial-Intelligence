@@ -12,9 +12,13 @@ import java.util.List;
 public class DepthFirstSearch extends Algorithm{
     public DepthFirstSearch(){
         this.printType = 0;
+        this.name = "Depth 1st search";
     }
     @Override
     public ArrayDeque<NewNode> add(ArrayDeque<NewNode> frontier, List<NewNode> children, Graph graph) {
-        return null;
+        for(int i = children.size() - 1; i >= 0; i--){
+            frontier.addFirst(children.get(i));
+        }
+        return frontier;
     }
 }

@@ -2,6 +2,7 @@ package edu.wpi.Project1.main;
 
 import edu.wpi.Project1.methods.Algorithm;
 import edu.wpi.Project1.methods.BreadthFirstSearch;
+import edu.wpi.Project1.methods.DepthFirstSearch;
 import edu.wpi.Project1.util.Graph;
 import edu.wpi.Project1.util.NewNode;
 
@@ -16,7 +17,7 @@ public class Search {
         File graphTxt = new File("C:\\Users\\John\\IdeaProjects\\CS4341\\resources\\graph.txt");
         Graph graph = new Graph(graphTxt);
 
-        search(graph, new BreadthFirstSearch());
+        search(graph, new DepthFirstSearch());
     }
 
     public static void search(Graph graph, Algorithm algo){
@@ -28,12 +29,12 @@ public class Search {
         frontier.add(new NewNode(0,graph.getHeur('S'),0,0,'S',path));
 
         System.out.println(algo.name);
-        System.out.println("Expanded  Queue");
+        System.out.println("    Expanded  Queue");
         do{
             printFrontier(algo.printType, frontier);
             node = frontier.pollFirst();
             if(node.getLetter() == 'G'){
-                System.out.println("Goal Reached");
+                System.out.println("        goal reached!");
                 return;
             }
             graph.setExplored(node.getLetter());
@@ -49,7 +50,8 @@ public class Search {
      * 3 = print heur
      */
     public static void printFrontier(int print, ArrayDeque<NewNode> frontier){
-        StringBuilder word = new StringBuilder("[");
+        StringBuilder word = new StringBuilder("        " + frontier.getFirst().getLetter() + "     ");
+        word.append("[");
         Iterator<NewNode> iter = frontier.iterator();
 
         while(iter.hasNext()){

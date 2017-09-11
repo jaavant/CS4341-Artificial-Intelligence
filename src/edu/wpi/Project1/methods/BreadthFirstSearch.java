@@ -17,15 +17,8 @@ public class BreadthFirstSearch extends Algorithm {
     @Override
     public ArrayDeque<NewNode> add(ArrayDeque<NewNode> frontier, List<NewNode> children, Graph graph) {
         for(NewNode child: children){
-            //if(!graph.wasExplored(child.getLetter())){
-              //  if(child.getLetter().equals(child.getPath().getLast())){
-               //     continue;
-               // }
-                frontier.addLast(child);
-
-            //}
+            frontier.addLast(child);
         }
-
         return frontier;
     }
 }
