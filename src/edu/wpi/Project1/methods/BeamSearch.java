@@ -112,7 +112,6 @@ public class BeamSearch extends Algorithm {
             frontier.addAll(sortedList);
         }
 
-
         return frontier;
     }
 }
