@@ -86,7 +86,7 @@ public class Graph {
     }
 
     /**
-     * Adds heurtisc value to goal node, to a node
+     * Adds heuristic value to goal node, to a node
      * @param source
      * @param heur
      */
