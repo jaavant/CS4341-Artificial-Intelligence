@@ -13,7 +13,7 @@ import java.util.*;
 public class Search {
 	
     public static void main(String[] args){
-        File graphTxt = new File("C:\\Users\\John\\IdeaProjects\\CS4341\\resources\\graph.txt");
+        File graphTxt = new File(args[0]);
         Graph graph = new Graph(graphTxt);
 
         search(graph, new DepthFirstSearch());
