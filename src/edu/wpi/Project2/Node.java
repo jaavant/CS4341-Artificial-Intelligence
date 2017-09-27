@@ -79,9 +79,254 @@ public class Node {
     }
 
 
+    /**
+     *  1 -> Up
+     *  2-> Down
+     *  3-> Right
+     *  4-> Left
+     *  5 -> Up Right
+     *  6-> Up Left
+     *  7 -> Down Right
+     *  8 -> Down Left
+     * @param color
+     * @return
+     */
+    public HashMap<Integer,List<HashSet<Pair>>> countInRow(int color){
+        HashMap<Integer,List<HashSet<Pair>>> map  = new HashMap<>();
+        map.put(1,new ArrayList<HashSet<Pair>>());
+        map.put(2,new ArrayList<HashSet<Pair>>());
+        map.put(3,new ArrayList<HashSet<Pair>>());
+        map.put(4,new ArrayList<HashSet<Pair>>());
+        map.put(5,new ArrayList<HashSet<Pair>>());
+        map.put(6,new ArrayList<HashSet<Pair>>());
+        map.put(7,new ArrayList<HashSet<Pair>>());
+        map.put(8,new ArrayList<HashSet<Pair>>());
 
-    public HashMap<Integer,List<HashSet<Pair>>> countInRow(int i){
-        return null;
+
+        for(int i = 0; i < 15; i++){
+            for(int k = 0; k < 15; k++){
+                if(board.squares[i][k] != color){
+                    continue;
+                }
+                Pair pair = new Pair(i,k);
+                boolean blockedLeft;
+                boolean blockedRight;
+                boolean blockedUp;
+                boolean blockedDown;
+
+                //Left
+                if(!inMap(map, 4, pair)){
+                    HashSet<Pair> set = new HashSet<>();
+                    set.add(pair);
+                    int blockers = 0;
+                    if(blocked(3,pair,color)) blockers++;
+
+                    for(int m = 1; m < 4; m++){
+                        if(pair.x - m > 0 && (board.squares[i][k-m] != color && board.squares[i][k-m] != 0)){
+                            blockers++;
+                            break;
+                        }
+                        else{
+                            set.add(new Pair(pair.y, pair.x - m));
+                        }
+                    }
+
+                    if(blockers < 2 && set.size() >= 2){
+                        map.get(4).add(set);
+                    }
+                }
+                //Down
+                if(!inMap(map, 2, pair)){
+                    HashSet<Pair> set = new HashSet<>();
+                    set.add(pair);
+                    int blockers = 0;
+                    if(blocked(1,pair,color)) blockers++;
+
+                    for(int m = 1; m < 4; m++){
+                        if(pair.y + m < 14 && (board.squares[i+m][k] != color && board.squares[i+m][k] != 0)){
+                            blockers++;
+                            break;
+                        }
+                        else{
+                            set.add(new Pair(pair.y+m, pair.x));
+                        }
+                    }
+
+                    if(blockers < 2 && set.size() >= 2){
+                        map.get(2).add(set);
+                    }
+                }
+                //Right
+                if(!inMap(map, 3, pair)){
+                    HashSet<Pair> set = new HashSet<>();
+                    set.add(pair);
+                    int blockers = 0;
+                    if(blocked(4,pair,color)) blockers++;
+
+                    for(int m = 1; m < 4; m++){
+                        if(pair.x + m < 14 && (board.squares[i][k+m] != color && board.squares[i][k+m] != 0)){
+                            blockers++;
+                            break;
+                        }
+                        else{
+                            set.add(new Pair(pair.y, pair.x+m));
+                        }
+                    }
+
+                    if(blockers < 2 && set.size() >= 2){
+                        map.get(3).add(set);
+                    }
+                }
+                //Up
+                if(!inMap(map, 1, pair)){
+                    HashSet<Pair> set = new HashSet<>();
+                    set.add(pair);
+                    int blockers = 0;
+                    if(blocked(2,pair,color)) blockers++;
+
+                    for(int m = 1; m < 4; m++){
+                        if(pair.y - m > 0 && (board.squares[i-m][k] != color && board.squares[i-m][k] != 0)){
+                            blockers++;
+                            break;
+                        }
+                        else{
+                            set.add(new Pair(pair.y - m, pair.x));
+                        }
+                    }
+
+                    if(blockers < 2 && set.size() >= 2){
+                        map.get(1).add(set);
+                    }
+                }
+                //UP Right
+                if(!inMap(map, 5, pair)){
+                    HashSet<Pair> set = new HashSet<>();
+                    set.add(pair);
+                    int blockers = 0;
+                    if(blocked(1,pair,color) || blocked(3,pair,color)) blockers++;
+
+                    for(int m = 1; m < 4; m++){
+                        if(pair.y - m > 0 && pair.x + m < 14 && (board.squares[i-m][k+m] != color && board.squares[i-m][k+m] != 0)){
+                            blockers++;
+                            break;
+                        }
+                        else{
+                            set.add(new Pair(pair.y-m, pair.x+m));
+                        }
+                    }
+
+                    if(blockers < 2 && set.size() >= 2){
+                        map.get(5).add(set);
+                    }
+                }
+                //Up Left
+                if(!inMap(map, 6, pair)){
+                    HashSet<Pair> set = new HashSet<>();
+                    set.add(pair);
+                    int blockers = 0;
+                    if(blocked(4,pair,color) || blocked(1,pair,color)) blockers++;
+
+                    for(int m = 1; m < 4; m++){
+                        if(pair.y - m > 0 && pair.x - m > 0 && (board.squares[i-m][k-m] != color && board.squares[i-m][k-m] != 0)){
+                            blockers++;
+                            break;
+                        }
+                        else{
+                            set.add(new Pair(pair.y-m, pair.x-m));
+                        }
+                    }
+
+                    if(blockers < 2 && set.size() >= 2){
+                        map.get(6).add(set);
+                    }
+                }
+                //Down Right
+                if(!inMap(map, 7, pair)){
+                    HashSet<Pair> set = new HashSet<>();
+                    set.add(pair);
+                    int blockers = 0;
+                    if(blocked(2,pair,color) || blocked(3,pair,color)) blockers++;
+
+                    for(int m = 1; m < 4; m++){
+                        if(pair.y + m < 14 && pair.x + m < 14 && (board.squares[i+m][k+m] != color && board.squares[i+m][k+m] != 0)){
+                            blockers++;
+                            break;
+                        }
+                        else{
+                            set.add(new Pair(pair.y+m, pair.x+m));
+                        }
+                    }
+
+                    if(blockers < 2 && set.size() >= 2){
+                        map.get(7).add(set);
+                    }
+                }
+                //Down Left
+                if(!inMap(map, 8, pair)){
+                    HashSet<Pair> set = new HashSet<>();
+                    set.add(pair);
+                    int blockers = 0;
+                    if(blocked(4,pair,color) || blocked(2,pair,color)) blockers++;
+
+                    for(int m = 1; m < 4; m++){
+                        if(pair.y + m < 14 && pair.x - m > 0 && (board.squares[i+m][k-m] != color && board.squares[i+m][k-m] != 0)){
+                            blockers++;
+                            break;
+                        }
+                        else{
+                            set.add(new Pair(pair.y+m, pair.x-m));
+                        }
+                    }
+
+                    if(blockers < 2 && set.size() >= 2){
+                        map.get(8).add(set);
+                    }
+                }
+
+            }
+        }
+        return map;
+    }
+
+    /**
+     * 1 -> up
+     * 2 -> down
+     * 3 -> right
+     * 4 -> left
+     * @param dir
+     * @return
+     */
+    private boolean blocked(int dir, Pair pair, int color){
+        if(dir == 1){
+            if(pair.y - 1 < 0 || (board.squares[pair.y -1 ][pair.x] != color && board.squares[pair.y - 1][pair.x] != 0)){
+                return true;
+            }
+        }
+        else if(dir == 2){
+            if(pair.y + 1 > 14 || (board.squares[pair.y + 1][pair.x] != color && board.squares[pair.y + 1][pair.x] != 0)){
+                return true;
+            }
+        }
+        else if(dir == 3){
+            if(pair.x + 1 > 14 || (board.squares[pair.y][pair.x + 1] != color && board.squares[pair.y][pair.x + 1] != 0)){
+                return true;
+            }
+        }
+        else if(dir == 4){
+            if(pair.x - 1< 0 || (board.squares[pair.y][pair.x - 1] != color && board.squares[pair.y][pair.x - 1] != 0)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean inMap(HashMap<Integer,List<HashSet<Pair>>> map, int direction, Pair pair){
+        for(HashSet set : map.get(direction)){
+            if(set.contains(pair)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void moveBoard(char ltr, int num, int color){

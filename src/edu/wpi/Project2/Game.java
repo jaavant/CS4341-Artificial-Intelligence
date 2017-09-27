@@ -38,7 +38,7 @@ public class Game {
         thread.start();
 
         try {
-            TimeUnit.MILLISECONDS.sleep(7000);
+            TimeUnit.MILLISECONDS.sleep(8000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
