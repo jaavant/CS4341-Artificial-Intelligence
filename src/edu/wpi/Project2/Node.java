@@ -1,9 +1,6 @@
 package edu.wpi.Project2;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -56,7 +53,35 @@ public class Node {
 
     //TODO
     public int getHeuristic(){
-        return -1;
+        return calcHeurVal(1) - calcHeurVal(2);
+    }
+
+    public int calcHeurVal(int i){
+        int player1 = 0;
+        HashMap<Integer,List<HashSet<Pair>>> map = countInRow(i);
+        for(Map.Entry<Integer,List<HashSet<Pair>>> entry :  map.entrySet()){
+            for(HashSet set : entry.getValue()){
+                if(set.size() == 2){
+                    player1 += 1;
+                }
+                else if(set.size() == 3){
+                    player1 += 10;
+                }
+                else if(set.size() == 4){
+                    player1 += 100;
+                }
+                else if(set.size() == 5){
+                    player1 += 1000;
+                }
+            }
+        }
+        return player1;
+    }
+
+
+
+    public HashMap<Integer,List<HashSet<Pair>>> countInRow(int i){
+        return null;
     }
 
     public void moveBoard(char ltr, int num, int color){
