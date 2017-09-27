@@ -1,5 +1,7 @@
 package edu.wpi.Project2;
 
+import java.util.concurrent.TimeUnit;
+
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -36,7 +38,7 @@ public class Game {
         thread.start();
 
         try {
-            Thread.sleep(7000);
+            TimeUnit.MILLISECONDS.sleep(7000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
