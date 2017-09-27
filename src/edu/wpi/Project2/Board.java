@@ -30,7 +30,7 @@ public class Board {
     public void addStone(char ltr, int num, int color){
         int x = ltr  - 'a' + 1;
         int y = num;
-        squares[y][x] = color;
+        squares[y-1][x-1] = color;
     }
 
 
