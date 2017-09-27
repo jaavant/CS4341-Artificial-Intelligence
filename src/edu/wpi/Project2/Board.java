@@ -31,10 +31,27 @@ public class Board {
         int x = ltr  - 'a' + 1;
         int y = num;
         squares[y-1][x-1] = color;
+        printBoard();
     }
 
 
-    @Override
+    private void printBoard() {
+		System.out.println("---------------------------------------------------------------");
+		for (int i = 0; i < column; i++) {
+			String line = "|";
+			for (int j = 0; j < rows; j++) {
+				int val = squares[i][j];
+				if (val == 0) {line += "   ";}
+				else if (val == 1) {line += " X ";}
+				else if (val == 2) {line += " O ";}
+				line += "|";
+			}
+			System.out.println(line);
+			System.out.println("--------------------------------------------------------------");
+		}
+	}
+
+	@Override
     public Board clone(){
         int[][] newMatrix = new int[15][15];
         for(int i = 0; i < 15; i++){
