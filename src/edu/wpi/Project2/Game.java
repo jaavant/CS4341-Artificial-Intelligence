@@ -24,6 +24,7 @@ public class Game {
 
     public void applyOpponentsMove(String move){
         String[] words = move.split("\\b[^\\s]+\\b");
+        state.moveBoard(words[1].charAt(0), Integer.parseInt(words[2]), 2);
     }
 
 }
