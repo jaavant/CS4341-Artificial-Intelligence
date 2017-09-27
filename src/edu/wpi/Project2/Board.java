@@ -17,6 +17,10 @@ public class Board {
     	}
     }
 
+    public Board(int[][] matrix){
+        this.squares = matrix;
+    }
+
     /**
      *
      * @param ltr  X coordinate
@@ -28,5 +32,17 @@ public class Board {
         int y = num;
         squares[y][x] = color;
     }
-    
+
+
+    @Override
+    public Board clone(){
+        int[][] newMatrix = new int[15][15];
+        for(int i = 0; i < 15; i++){
+            for(int k = 0; k < 15; k++){
+                newMatrix[i][k] = this.squares[i][k];
+            }
+        }
+
+        return new Board(newMatrix);
+    }
 }
