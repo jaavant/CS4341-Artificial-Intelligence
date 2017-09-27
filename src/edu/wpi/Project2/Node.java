@@ -55,15 +55,17 @@ public class Node {
     }
 
     //alpha beta pruning implementation
-    private int search(Node node, int depth, int alpha, int beta, boolean maxPlayer){
+    private int[] search(Node node, int depth, int alpha, int beta, boolean maxPlayer){
         if(depth == 0 || node.isTerminal()){
-            return node.getHeuristic();
+            int[] result = {node.getHeuristic(),node.moveX,node.moveY};
+            return result;
         }
         if(maxPlayer){
-            int v = Integer.MIN_VALUE;
+            int v[] =  {Integer.MIN_VALUE};
             for(Node child : node.getChildren()){
-                v = max(v, search(child,depth -1, alpha, beta, false));
-                alpha = max(alpha,v);
+                int[] srch = search(child,depth -1, alpha, beta, false);
+                v = (v[0] > srch[0])?  v : srch;
+                alpha = max(alpha,v[0]);
                 if(beta <= alpha){
                     break;
                 }
@@ -72,10 +74,11 @@ public class Node {
 
         }
         else{
-            int v = Integer.MAX_VALUE;
+            int[] v = {Integer.MAX_VALUE};
             for(Node child : node.getChildren()){
-                v = min(v, search(child,depth -1, alpha, beta, true));
-                beta = min(beta, v);
+                int[] srch = search(child,depth -1, alpha, beta, true);
+                v = (v[0] < srch[0]) ? v : srch;
+                beta = min(beta, v[0]);
                 if(beta <= alpha){
                     break;
                 }
