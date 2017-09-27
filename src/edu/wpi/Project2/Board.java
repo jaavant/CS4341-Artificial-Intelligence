@@ -16,5 +16,17 @@ public class Board {
     		}
     	}
     }
+
+    /**
+     *
+     * @param ltr  X coordinate
+     * @param num  Y coordinate
+     * @param color  1 For our Team, 2 For their team
+     */
+    public void addStone(char ltr, int num, int color){
+        int x = ltr  - 'a' + 1;
+        int y = num;
+        squares[y][x] = color;
+    }
     
 }
