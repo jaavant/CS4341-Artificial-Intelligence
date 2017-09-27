@@ -15,8 +15,8 @@ public class Node {
     private Board board;
 
    //Board representation [Starting from 1]
-    private int moveX;
-    private int moveY;
+    int moveX;
+    int moveY;
 
     public Node(){
         this.board = new Board();
@@ -54,38 +54,6 @@ public class Node {
         return children;
     }
 
-    //alpha beta pruning implementation
-    private int[] search(Node node, int depth, int alpha, int beta, boolean maxPlayer){
-        if(depth == 0 || node.isTerminal()){
-            int[] result = {node.getHeuristic(),node.moveX,node.moveY};
-            return result;
-        }
-        if(maxPlayer){
-            int v[] =  {Integer.MIN_VALUE};
-            for(Node child : node.getChildren()){
-                int[] srch = search(child,depth -1, alpha, beta, false);
-                v = (v[0] > srch[0])?  v : srch;
-                alpha = max(alpha,v[0]);
-                if(beta <= alpha){
-                    break;
-                }
-            }
-            return v;
-
-        }
-        else{
-            int[] v = {Integer.MAX_VALUE};
-            for(Node child : node.getChildren()){
-                int[] srch = search(child,depth -1, alpha, beta, true);
-                v = (v[0] < srch[0]) ? v : srch;
-                beta = min(beta, v[0]);
-                if(beta <= alpha){
-                    break;
-                }
-            }
-            return v;
-        }
-    }
     //TODO
     public int getHeuristic(){
         return -1;
@@ -95,7 +63,7 @@ public class Node {
         board.addStone(ltr,num,color);
     }
 
-    private boolean isTerminal(){
+    public boolean isTerminal(){
         boolean full = true;
         outerLoop:
         for(int i = 0; i < 15; i++){
