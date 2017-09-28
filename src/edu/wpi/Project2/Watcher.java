@@ -86,8 +86,11 @@ public class Watcher {
                     try {
                         bReader = new BufferedReader(new FileReader("move_file.txt"));
                         move = bReader.readLine();
-                        Game.getInstance().applyOpponentsMove(move.trim());
-                        bReader.close();
+
+                        if(move.trim().length() > 0) {
+                            Game.getInstance().applyOpponentsMove(move.trim());
+                            bReader.close();
+                        }
 
                         BufferedWriter outStream= new BufferedWriter(new FileWriter("move_file.txt"));
                         outStream.write(Game.getInstance().getNextMove());
