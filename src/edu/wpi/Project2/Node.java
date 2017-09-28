@@ -126,6 +126,9 @@ public class Node {
                             blockers++;
                             break;
                         }
+                        else if(board.squares[i][k-m] == 0){
+                            break;
+                        }
                         else{
                             set.add(new Pair(pair.y, pair.x - m));
                         }
@@ -145,6 +148,9 @@ public class Node {
                     for(int m = 1; m < 4; m++){
                         if(pair.y + m < 14 && (board.squares[i+m][k] != color && board.squares[i+m][k] != 0)){
                             blockers++;
+                            break;
+                        }
+                        else if(board.squares[i+m][k] == 0){
                             break;
                         }
                         else{
@@ -168,6 +174,9 @@ public class Node {
                             blockers++;
                             break;
                         }
+                        else if(board.squares[i][k+m] == 0){
+                            break;
+                        }
                         else{
                             set.add(new Pair(pair.y, pair.x+m));
                         }
@@ -187,6 +196,9 @@ public class Node {
                     for(int m = 1; m < 4; m++){
                         if(pair.y - m > 0 && (board.squares[i-m][k] != color && board.squares[i-m][k] != 0)){
                             blockers++;
+                            break;
+                        }
+                        else if(board.squares[i-m][k] == 0){
                             break;
                         }
                         else{
@@ -210,6 +222,9 @@ public class Node {
                             blockers++;
                             break;
                         }
+                        else if(board.squares[i-m][k+m] == 0){
+                            break;
+                        }
                         else{
                             set.add(new Pair(pair.y-m, pair.x+m));
                         }
@@ -229,6 +244,9 @@ public class Node {
                     for(int m = 1; m < 4; m++){
                         if(pair.y - m > 0 && pair.x - m > 0 && (board.squares[i-m][k-m] != color && board.squares[i-m][k-m] != 0)){
                             blockers++;
+                            break;
+                        }
+                        else if(board.squares[i-m][k-m] == 0){
                             break;
                         }
                         else{
@@ -252,6 +270,9 @@ public class Node {
                             blockers++;
                             break;
                         }
+                        else if(board.squares[i+m][k+m] == 0){
+                            break;
+                        }
                         else{
                             set.add(new Pair(pair.y+m, pair.x+m));
                         }
@@ -271,6 +292,9 @@ public class Node {
                     for(int m = 1; m < 4; m++){
                         if(pair.y + m < 14 && pair.x - m > 0 && (board.squares[i+m][k-m] != color && board.squares[i+m][k-m] != 0)){
                             blockers++;
+                            break;
+                        }
+                        else if(board.squares[i+m][k-m] == 0){
                             break;
                         }
                         else{
