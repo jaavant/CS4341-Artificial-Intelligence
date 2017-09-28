@@ -15,6 +15,8 @@ public class Game {
 
     protected Game(){
         state = new Node();
+        state.moveX = 8;
+        state.moveY = 7;
     }
 
     public static Game getInstance(){
