@@ -43,7 +43,7 @@ public class Node {
         for(int i = 0; i < 15; i++){
             for(int k = 0; k < 15; k++){
                 if(board.squares[i][k] == 0){
-                    new Node(board.clone(),k+1, i+1);
+                    children.add(new Node(board.clone(),k+1, i+1));
                 }
             }
         }
