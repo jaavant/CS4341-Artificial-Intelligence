@@ -122,7 +122,7 @@ public class Node {
                     if(blocked(3,pair,color)) blockers++;
 
                     for(int m = 1; m < 4; m++){
-                        if(pair.x - m > 0 && (board.squares[i][k-m] != color && board.squares[i][k-m] != 0)){
+                        if(pair.x - m < 0 && (board.squares[i][k-m] != color && board.squares[i][k-m] != 0)){
                             blockers++;
                             break;
                         }
@@ -146,7 +146,7 @@ public class Node {
                     if(blocked(1,pair,color)) blockers++;
 
                     for(int m = 1; m < 4; m++){
-                        if(pair.y + m < 14 && (board.squares[i+m][k] != color && board.squares[i+m][k] != 0)){
+                        if(pair.y + m > 14 && (board.squares[i+m][k] != color && board.squares[i+m][k] != 0)){
                             blockers++;
                             break;
                         }
@@ -170,7 +170,7 @@ public class Node {
                     if(blocked(4,pair,color)) blockers++;
 
                     for(int m = 1; m < 4; m++){
-                        if(pair.x + m < 14 && (board.squares[i][k+m] != color && board.squares[i][k+m] != 0)){
+                        if(pair.x + m > 14 && (board.squares[i][k+m] != color && board.squares[i][k+m] != 0)){
                             blockers++;
                             break;
                         }
@@ -194,7 +194,7 @@ public class Node {
                     if(blocked(2,pair,color)) blockers++;
 
                     for(int m = 1; m < 4; m++){
-                        if(pair.y - m > 0 && (board.squares[i-m][k] != color && board.squares[i-m][k] != 0)){
+                        if(pair.y - m < 0 && (board.squares[i-m][k] != color && board.squares[i-m][k] != 0)){
                             blockers++;
                             break;
                         }
@@ -218,7 +218,7 @@ public class Node {
                     if(blocked(1,pair,color) || blocked(3,pair,color)) blockers++;
 
                     for(int m = 1; m < 4; m++){
-                        if(pair.y - m > 0 && pair.x + m < 14 && (board.squares[i-m][k+m] != color && board.squares[i-m][k+m] != 0)){
+                        if(pair.y - m < 0 && pair.x + m > 14 && (board.squares[i-m][k+m] != color && board.squares[i-m][k+m] != 0)){
                             blockers++;
                             break;
                         }
@@ -242,7 +242,7 @@ public class Node {
                     if(blocked(4,pair,color) || blocked(1,pair,color)) blockers++;
 
                     for(int m = 1; m < 4; m++){
-                        if(pair.y - m > 0 && pair.x - m > 0 && (board.squares[i-m][k-m] != color && board.squares[i-m][k-m] != 0)){
+                        if(pair.y - m < 0 && pair.x - m < 0 && (board.squares[i-m][k-m] != color && board.squares[i-m][k-m] != 0)){
                             blockers++;
                             break;
                         }
@@ -266,7 +266,7 @@ public class Node {
                     if(blocked(2,pair,color) || blocked(3,pair,color)) blockers++;
 
                     for(int m = 1; m < 4; m++){
-                        if(pair.y + m < 14 && pair.x + m < 14 && (board.squares[i+m][k+m] != color && board.squares[i+m][k+m] != 0)){
+                        if(pair.y + m > 14 && pair.x + m > 14 && (board.squares[i+m][k+m] != color && board.squares[i+m][k+m] != 0)){
                             blockers++;
                             break;
                         }
@@ -290,7 +290,7 @@ public class Node {
                     if(blocked(4,pair,color) || blocked(2,pair,color)) blockers++;
 
                     for(int m = 1; m < 4; m++){
-                        if(pair.y + m < 14 && pair.x - m > 0 && (board.squares[i+m][k-m] != color && board.squares[i+m][k-m] != 0)){
+                        if(pair.y + m > 14 && pair.x - m < 0 && (board.squares[i+m][k-m] != color && board.squares[i+m][k-m] != 0)){
                             blockers++;
                             break;
                         }
