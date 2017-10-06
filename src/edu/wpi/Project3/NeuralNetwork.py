@@ -89,7 +89,7 @@ x_train = np.asarray(trainingSet)
 y_train = np.asarray(trainingNumSet)
 
 
-#Function
+#Functions
 def predictedNum(npArray):
    maxIndex = 0
    max = -999999999
@@ -102,6 +102,16 @@ def predictedNum(npArray):
    return maxIndex
 
 
+def network_acc(matrix):
+    totVals = 0
+    corrVals = 0
+    for i in range(10):
+        for j in range(10):
+            totVals += matrix[i][j]
+            if i == j:
+                corrVals += matrix[i][j]
+    accuracy = float(corrVals) / totVals
+    return accuracy
 
 #Set seed
 np.random.seed(7)
@@ -166,6 +176,9 @@ for num in range(0,len(y_test)):
 print(scores.shape)
 print(scores[0])
 print(cMatrix)
+
+acc = network_acc(cMatrix)
+print(acc)
 
 
 
