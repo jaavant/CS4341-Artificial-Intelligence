@@ -1,7 +1,11 @@
+import time
 from keras.models import Sequential
 from keras.layers import Dense, Activation
 import numpy as np
+import matplotlib.pyplot as plt
 from random import randint
+import itertools
+
 
 
 images_array = np.load('images.npy')
@@ -85,6 +89,22 @@ x_train = np.asarray(trainingSet)
 y_train = np.asarray(trainingNumSet)
 
 
+#Function
+def predictedNum(npArray):
+   maxIndex = 0
+   max = -999999999
+
+   for num in range(0,len(npArray)):
+       if npArray[num] > max:
+           maxIndex = num
+           max = npArray[num]
+
+   return maxIndex
+
+
+
+#Set seed
+np.random.seed(7)
 
 # Model Template
 
@@ -93,8 +113,8 @@ model.add(Dense(10, input_shape=(28*28, ), kernel_initializer='he_normal')) # fi
 model.add(Activation('relu'))
 #
 #
-#
-# Fill in Model Here
+model.add(Dense(397, kernel_initializer='he_normal'))
+model.add(Activation('tanh'))
 #
 #
 model.add(Dense(10, kernel_initializer='he_normal')) # last layer
@@ -109,11 +129,44 @@ model.compile(optimizer='sgd',
 # Train Model
 history = model.fit(x_train, y_train,
                     validation_data = (x_val, y_val),
-                    epochs=10,
+                    epochs = 25,
                     batch_size=512)
 
 
 # Report Results
-print(history.history)
-scores = model.predict()
+scores = model.predict(x_test)
+
+
+#Confusion Matrix
+cMatrix = np.zeros((10,10))
+
+for num in range(0,len(y_test)):
+    if np.array_equal(y_test[num], np.eye(10)[0]):
+        cMatrix[0,predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[1]):
+        cMatrix[1, predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[2]):
+        cMatrix[2, predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[3]):
+        cMatrix[3, predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[4]):
+        cMatrix[4, predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[5]):
+        cMatrix[5, predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[6]):
+        cMatrix[6, predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[7]):
+        cMatrix[7, predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[8]):
+        cMatrix[8, predictedNum(scores[num])] += 1
+    elif np.array_equal(y_test[num], np.eye(10)[9]):
+        cMatrix[9, predictedNum(scores[num])] += 1
+
+
+print(scores.shape)
+print(scores[0])
+print(cMatrix)
+
+
+
 
