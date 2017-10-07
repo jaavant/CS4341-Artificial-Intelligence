@@ -4,6 +4,8 @@ from keras.layers import Dense, Activation
 import numpy as np
 import matplotlib.pyplot as plt
 from random import randint
+import seaborn as sn
+
 import itertools
 
 
@@ -119,11 +121,11 @@ np.random.seed(7)
 # Model Template
 
 model = Sequential() # declare model
-model.add(Dense(10, input_shape=(28*28, ), kernel_initializer='he_normal')) # first layer
+model.add(Dense(784, input_shape=(28*28, ), kernel_initializer='lecun_normal')) # first layer
 model.add(Activation('relu'))
 #
 #
-model.add(Dense(397, kernel_initializer='he_normal'))
+model.add(Dense(397, kernel_initializer='lecun_normal'))
 model.add(Activation('tanh'))
 #
 #
@@ -140,7 +142,7 @@ model.compile(optimizer='sgd',
 history = model.fit(x_train, y_train,
                     validation_data = (x_val, y_val),
                     epochs = 25,
-                    batch_size=512)
+                    batch_size= 32)
 
 
 # Report Results
@@ -174,12 +176,15 @@ for num in range(0,len(y_test)):
 
 
 print(scores.shape)
-print(scores[0])
 print(cMatrix)
+
+
+print(history.history)
+print(history.history['acc'])
+print(history.history['val_acc'])
 
 acc = network_acc(cMatrix)
 print(acc)
-
 
 
 
